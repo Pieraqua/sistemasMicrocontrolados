@@ -44,7 +44,10 @@ GPIO_PORTM_DATA_R    	EQU    0x400633FC
 		;EXPORT LigaSSD_Direita
 		;EXPORT LigaSSD_Esquerda
 		;EXPORT Desliga_SSD
+
 		EXPORT Liga_LCD
+		EXPORT Desliga_LCD
+		EXPORT Liga_Enable
 		EXPORT Liga_x			
 		EXPORT Liga_0
 		EXPORT Liga_1
@@ -55,8 +58,7 @@ GPIO_PORTM_DATA_R    	EQU    0x400633FC
 		EXPORT Liga_6		
 		EXPORT Liga_7		
 		EXPORT Liga_8
-		EXPORT Liga_9
-		EXPORT Desliga_LCD		
+		EXPORT Liga_9		
 
 
 ;PortK_Output
@@ -118,9 +120,36 @@ Liga_LCD
 ; 
 ; Pinos
 	PUSH {R1,LR}
-	MOV R0, #00000100 ; bit 1 pode ser 0 ou 1/read or write, n sei com qual deve começar
+	MOV R0, #00000100
 	BL PortM_Output
-	;MOV R0, #0x00 ;
+	MOV R0, #00001111 
+	BL PortK_Output
+	POP {R1,PC}	;Retorna
+Desliga_LCD
+; 
+; Pinos
+	PUSH {R1,LR}
+	MOV R0, #00000100
+	BL PortM_Output
+	MOV R0, #00001000 
+	BL PortK_Output
+	POP {R1,PC}	;Retorna
+Liga_Enable
+; 
+; Pinos
+	PUSH {R1,LR}
+	MOV R0, #00000100
+	BL PortM_Output
+	;MOV R0, #0x00
+	;BL PortK_Output
+	POP {R1,PC}	;Retorna
+Desliga_Enable
+; 
+; Pinos
+	PUSH {R1,LR}
+	MOV R0, #00000000
+	BL PortM_Output
+	;MOV R0, #0x00
 	;BL PortK_Output
 	POP {R1,PC}	;Retorna
 Liga_x
@@ -225,16 +254,6 @@ Liga_9
 	MOV R0, #00111001 ;
 	BL PortK_Output
 	POP {PC}	;Retorna
-	
-Desliga_LCD
-; 
-; Pinos nenhum
-	PUSH {R1,LR}
-	MOV R0, #00000000 ;bit 1 pode ser 0 ou 1/read or write, n sei com qual deve terminar
-	BL PortM_Output
-	;MOV R0, #0x00 ;
-	;BL PortK_Output
-	POP {R1,PC}	;Retorna
 ; -------------------------------------------------------------------------------------------------------------------------
 ; Fim do Arquivo
 ; -------------------------------------------------------------------------------------------------------------------------	
