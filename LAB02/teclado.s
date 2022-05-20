@@ -10,11 +10,10 @@
 getTeclaPressionada
     PUSH {R0, R1, R2, R3, R4, R5, R6, R7, LR}
 
-    LDR R2, GPIO_DATA_IN
-    LDR R3, GPIO_DATA_OUT
+    LDR R2, =GPIO_DATA_IN
+    LDR R3, =GPIO_DATA_OUT
 
     MOV R5, #0
-    MOV R6, #0
 
 LeituraTeclado
     ;Coloca 1110
@@ -46,7 +45,7 @@ LoopLeitura
     CMP R5, #16
     IT GE
     BGE FimLeituraTeclado
-
+    ;LEMBRAR DE INVERTER R4
     LDR R7, =#0x10000
     CMP R4, R7
     IT EQ
@@ -55,10 +54,10 @@ LoopLeitura
     LDR R1, R2
     AND R0, R1, R4
     CMP R0, #0
-    ITTTEQ
-    ADDEQ R5, #1
-    BSLEQ R4, #1
-    BEQ LoopLeitura
+    ITTTGT
+    ADDGT R5, #1
+    BSLGT R4, #1
+    BGT LoopLeitura
 
 FimLeituraTeclado
     ;Se retornar 16, nenhuma tecla foi lida.
