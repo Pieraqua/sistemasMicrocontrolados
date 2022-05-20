@@ -15,177 +15,26 @@ getTeclaPressionada
 
     MOV R5, #0
 
-LeituraTeclado1
+LeituraTeclado
     ;Coloca 1110
-    MOV R1, #0x0D
-    ;Output pro GPIO
-    LDR R0, R2
-    LDR R4, =#0xFFFFFFF0
-    AND R0, R4
-    ORR R0, R1
-    STR R2, R0
-
-    ;Le os gpio
-    LDR R0, R2
-    LDR R4, =#0x00000001
-    AND R0, R4
-    CMP R0, #0
-    IT GT
-    BGT FimLeituraTeclado
-
-    MOV R6, #1
-    ADD R5, #1
-
-LoopLeituraTeclado1
-    BSL R4, R4
-    AND R0, R4
-    ADD R6, #1
-    CMP R6, #4
+    CMP R5, #0
     IT EQ
-    BEQ LeituraTeclado2
-    CMP R0, #0
-    ITEE GT
-    BGT FimLeituraTeclado
-    ADDEQ R5, #1
-    BEQ LoopLeituraTeclado1
+    MOVEQ R1, #0X0D
 
-LeituraTeclado1
-    ;Coloca 1110
-    MOV R1, #0x0E
-    ;Output pro GPIO
-    LDR R0, R2
-    LDR R4, =#0xFFFFFFF0
-    AND R0, R4
-    ORR R0, R1
-    STR R2, R0
-
-    ;Le os gpio
-    LDR R0, R2
-    LDR R4, =#0x00000001
-    AND R0, R4
-    CMP R0, #0
-    IT GT
-    BGT FimLeituraTeclado
-
-    MOV R6, #1
-    ADD R5, #1
-
-LoopLeituraTeclado1
-    BSL R4, R4
-    AND R0, R4
-    ADD R6, #1
-    CMP R6, #4
-    IT EQ
-    BEQ LeituraTeclado2
-    CMP R0, #0
-    ITEE GT
-    BGT FimLeituraTeclado
-    ADDEQ R5, #1
-    BEQ LoopLeituraTeclado1
-
-
-LeituraTeclado2
     ;Coloca 1101
-    MOV R1, #0x0D
-    ;Output pro GPIO
-    LDR R0, R2
-    LDR R4, =#0xFFFFFFF0
-    AND R0, R4
-    ORR R0, R1
-    STR R2, R0
-
-    ;Le os gpio
-    LDR R0, R2
-    LDR R4, =#0x00000001
-    AND R0, R4
-    CMP R0, #0
-    IT GT
-    BGT FimLeituraTeclado
-
-    MOV R6, #1
-    ADD R5, #1
-
-LoopLeituraTeclado2
-    BSL R4, R4
-    AND R0, R4
-    ADD R6, #1
-    CMP R6, #4
+    CMP R5, #4
     IT EQ
-    BEQ LeituraTeclado3
-    CMP R0, #0
-    ITEE GT
-    BGT FimLeituraTeclado
-    ADDEQ R5, #1
-    BEQ LoopLeituraTeclado2
+    MOVEQ R1, #0X0E
 
-
-LeituraTeclado3
     ;Coloca 1011
-    MOV R1, #0x0B
-    ;Output pro GPIO
-    LDR R0, R2
-    LDR R4, =#0xFFFFFFF0
-    AND R0, R4
-    ORR R0, R1
-    STR R2, R0
-
-    ;Le os gpio
-    LDR R0, R2
-    LDR R4, =#0x00000001
-    AND R0, R4
-    CMP R0, #0
-    IT GT
-    BGT FimLeituraTeclado
-
-    MOV R6, #1
-    ADD R5, #1
-
-LoopLeituraTeclado3
-    BSL R4, R4
-    AND R0, R4
-    ADD R6, #1
-    CMP R6, #4
+    CMP R5, #8
     IT EQ
-    BEQ LeituraTeclado4
-    CMP R0, #0
-    ITEE GT
-    BGT FimLeituraTeclado
-    ADDEQ R5, #1
-    BEQ LoopLeituraTeclado3
+    MOVEQ R1, #0X0B
 
-LeituraTeclado4
     ;Coloca 0111
-    MOV R1, #0x07
-    ;Output pro GPIO
-    LDR R0, R2
-    LDR R4, =#0xFFFFFFF0
-    AND R0, R4
-    ORR R0, R1
-    STR R2, R0
-
-    ;Le os gpio
-    LDR R0, R2
-    LDR R4, =#0x00000001
-    AND R0, R4
-    CMP R0, #0
-    IT GT
-    BGT FimLeituraTeclado
-    MOV R6, #1
-LoopLeituraTeclado4
-    BSL R4, R4
-    AND R0, R4
-    ;Loopa ate ler 4 bits
-    ADD R6, #1
-    CMP R6, #4
-    ITT EQ
-    MOVEQ R0, #0xFF
-    BEQ FimLeituraTeclado
-    ;Se o valor nao for zero, achamos.
-    ;Caso contrario, continuamos.
-    CMP R0, #0
-    ITE GT
-    BGT FimLeituraTeclado
-    BEQ LoopLeituraTeclado4
+    CMP R5, #12
+    IT EQ
+    MOVEQ R1, #0X07
 
 FimLeituraTeclado
     MOV R0, R5
