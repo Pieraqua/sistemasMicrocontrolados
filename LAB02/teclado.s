@@ -8,7 +8,7 @@
     AREA |.text|, CODE, READONLY, ALIGN=2
 
 getTeclaPressionada
-    PUSH {R0, R1, R2, R3, R4, R5, R6, R7, LR}
+    PUSH {R1, R2, R3, R4, R5, R6, R7, LR}
 
     LDR R2, =GPIO_DATA_IN
     LDR R3, =GPIO_DATA_OUT
