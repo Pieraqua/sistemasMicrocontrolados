@@ -37,17 +37,13 @@ GPIO_PORTM_DATA_R    	EQU    0x400633FC
         ;IMPORT <func>              ; Permite chamar dentro deste arquivo uma 
 									; função <func>
 
-		IMPORT  SysTick_Wait1ms		;Import de utils.s	
+		IMPORT SysTick_Wait1ms		;Import de utils.s	
 		IMPORT SysTick_Wait
 
-
-		;EXPORT LigaSSD_Direita
-		;EXPORT LigaSSD_Esquerda
-		;EXPORT Desliga_SSD
-
-		EXPORT Liga_LCD
-		EXPORT Desliga_LCD
+		;EXPORT Liga_LCD
+		;EXPORT Desliga_LCD
 		EXPORT Liga_Enable
+		EXPORT Desliga_Enable
 		EXPORT Liga_x			
 		EXPORT Liga_0
 		EXPORT Liga_1
@@ -58,82 +54,65 @@ GPIO_PORTM_DATA_R    	EQU    0x400633FC
 		EXPORT Liga_6		
 		EXPORT Liga_7		
 		EXPORT Liga_8
-		EXPORT Liga_9		
+		EXPORT Liga_9
+		EXPORT Liga_E
+		EXPORT Liga_a	
+		EXPORT Liga_i		
 
+;----------------------------------------------------------------------------------------------------------------
 
-;PortK_Output
-;	PUSH {R2, R1, LR}
-;	LDR	R1, =GPIO_PORTK_DATA_R		   		;Carrega o valor do offset do data register
-;	LDR R2, [R1]							;Read-Modify-Write para escrita
-;	AND R0, #0x0F                     		;Limpamos os bits que vamos mexer em
-;	BIC R2, #0x0F                     		;Limpamos os bits que vamos mexer em
-;	ORR R0, R0, R2                          ;Fazer o OR do lido pela porta com o parâmetro de entrada
-;	STR R0, [R1]                            ;Escreve na porta N o barramento de dados dos pinos N0 e N1
-;	POP {R2, R1, PC}
+PortK_Output
+	PUSH {R2, R1, LR}
+	LDR R1, =GPIO_PORTK_DATA_R		;Carrega o valor do offset do data register
+	LDR R2, [R1]				;Read-Modify-Write para escrita
+	AND R0, #0x0F                     	;Limpamos os bits que vamos mexer em
+	BIC R2, #0x0F                     	;Limpamos os bits que vamos mexer em
+	ORR R0, R0, R2                          ;Fazer o OR do lido pela porta com o parâmetro de entrada
+	STR R0, [R1]                            ;Escreve na porta N o barramento de dados dos pinos N0 e N1
+	POP {R2, R1, PC}
 
-;PortL_Output
-;	PUSH {R2, R1, LR}
-;	LDR	R1, =GPIO_PORTL_DATA_R		   		;Carrega o valor do offset do data register
-;	LDR R2, [R1]							;Read-Modify-Write para escrita
-;	AND R0, #0xF0                     		;Limpamos os bits que vamos mexer
-;	BIC R2, #0xF0                     		;Limpamos os bits que vamos mexer
-;	ORR R0, R0, R2                          ;Fazer o OR do lido pela porta com o parâmetro de entrada
-;	STR R0, [R1]                            ;Escreve na porta N o barramento de dados dos pinos N0 e N1
-;	POP {R2, R1, PC}
+PortL_Output
+	PUSH {R2, R1, LR}
+	LDR R1, =GPIO_PORTL_DATA_R		;Carrega o valor do offset do data register
+	LDR R2, [R1]				;Read-Modify-Write para escrita
+	AND R0, #0xF0                     	;Limpamos os bits que vamos mexer
+	BIC R2, #0xF0                     	;Limpamos os bits que vamos mexer
+	ORR R0, R0, R2                          ;Fazer o OR do lido pela porta com o parâmetro de entrada
+	STR R0, [R1]                            ;Escreve na porta N o barramento de dados dos pinos N0 e N1
+	POP {R2, R1, PC}
 
-;PortM_Output
-;	PUSH {R2, R1, LR}
-;	LDR	R1, =GPIO_PORTM_DATA_R		   		;Carrega o valor do offset do data register
-;	LDR R2, [R1]							;Read-Modify-Write para escrita
-;	AND R0, #0x30                     		;Limpamos os bits que vamos mexer
-;	BIC R2, #0x30                     		;Limpamos os bits que vamos mexer
-;	ORR R0, R0, R2                          ;Fazer o OR do lido pela porta com o parâmetro de entrada
-;	STR R0, [R1]                            ;Escreve na porta N o barramento de dados dos pinos N0 e N1
-;	POP {R2, R1, PC}
+PortM_Output
+	PUSH {R2, R1, LR}
+	LDR R1, =GPIO_PORTM_DATA_R		;Carrega o valor do offset do data register
+	LDR R2, [R1]				;Read-Modify-Write para escrita
+	AND R0, #0x30                     	;Limpamos os bits que vamos mexer
+	BIC R2, #0x30                     	;Limpamos os bits que vamos mexer
+	ORR R0, R0, R2                          ;Fazer o OR do lido pela porta com o parâmetro de entrada
+	STR R0, [R1]                            ;Escreve na porta N o barramento de dados dos pinos N0 e N1
+	POP {R2, R1, PC}
 
+;-------------------------------------------------------------------------------------------------------------------
 
-;LigaSSD_Direita
-;	PUSH {R1, LR}
-;	MOV R0, #0x00 ;PB5
-;	BL PortB_Output_SSD
-;	MOV R0, #5
-;	BL SysTick_Wait1ms
-;	MOV R0, #0x20 ;PB5
-;	BL PortB_Output_SSD
-;	;MOV R0, #5
-;	;BL SysTick_Wait1ms
-;	POP {R1, PC}
-
-;LigaSSD_Esquerda
-;	PUSH {R1, LR}
-;	MOV R0, #0x00 ;PB5
-;	BL PortB_Output_SSD
-;	MOV R0, #5
-;	BL SysTick_Wait1ms
-;	MOV R0, #0x10 ;PB4
-;	BL PortB_Output_SSD
-;	;MOV R0, #5
-;	;BL SysTick_Wait1ms
-;	POP {R1, PC}
---------------------------------------------------------------------------
-Liga_LCD
+;Liga_LCD
 ; 
 ; Pinos
-	PUSH {R1,LR}
-	MOV R0, #00000100
-	BL PortM_Output
-	MOV R0, #00001111 
-	BL PortK_Output
-	POP {R1,PC}	;Retorna
-Desliga_LCD
+;	PUSH {R1,LR}
+;	MOV R0, #00000100
+;	BL PortM_Output
+;	MOV R0, #00001111 
+;	BL PortK_Output
+;	POP {R1,PC}	;Retorna
+
+;Desliga_LCD
 ; 
 ; Pinos
-	PUSH {R1,LR}
-	MOV R0, #00000100
-	BL PortM_Output
-	MOV R0, #00001000 
-	BL PortK_Output
-	POP {R1,PC}	;Retorna
+;	PUSH {R1,LR}
+;	MOV R0, #00000100
+;	BL PortM_Output
+;	MOV R0, #00001000 
+;	BL PortK_Output
+;	POP {R1,PC}	;Retorna
+
 Liga_Enable
 ; 
 ; Pinos
@@ -143,6 +122,7 @@ Liga_Enable
 	;MOV R0, #0x00
 	;BL PortK_Output
 	POP {R1,PC}	;Retorna
+
 Desliga_Enable
 ; 
 ; Pinos
@@ -152,21 +132,23 @@ Desliga_Enable
 	;MOV R0, #0x00
 	;BL PortK_Output
 	POP {R1,PC}	;Retorna
+
 Liga_x
 ; 
 ; Pinos 
 	PUSH {LR}
-	;MOV R0, # ;
-	;BL PortM_Output
+	MOV R0, #00000001 
+	BL PortM_Output
 	MOV R0, #01011000
 	BL PortK_Output
 	POP {PC}	;Retorna
+
 Liga_0
 ; 
 ; Pinos  
 	PUSH {LR}
-	;MOV R0, # ;
-	;BL PortM_Output
+	MOV R0, #00000001 
+	BL PortM_Output
 	MOV R0, #00110000
 	BL PortK_Output
 	POP {PC}	;Retorna
@@ -175,73 +157,79 @@ Liga_1
 ; 
 ; Pinos 
 	PUSH {LR}
-	;MOV R0, # ;
-	;BL PortM_Output
-	MOV R0, #00110001 ;
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #00110001 
 	BL PortK_Output
 	POP {PC}	;Retorna
+
 Liga_2
 ; 
 ; Pinos 
 	PUSH {LR}
-	;MOV R0, # ;
-	;BL PortM_Output
-	MOV R0, #00110010 ;
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #00110010 
 	BL PortK_Output
 	POP {PC}	;Retorna
+
 Liga_3
 ; 
 ; Pinos 
 	PUSH {LR}
-	;MOV R0, # ;
-	;BL PortM_Output
-	MOV R0, #00110011 ;
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #00110011 
 	BL PortK_Output
 	POP {PC}	;Retorna
+
 Liga_4
 ; 
 ; Pinos 
 	PUSH {LR}
-	;MOV R0, # ;
-	;BL PortM_Output
-	MOV R0, #00110100 ;
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #00110100 
 	BL PortK_Output
 	POP {PC}	;Retorna
+
 Liga_5 
 ; 
 ; Pinos 
 	PUSH {LR}
-	;MOV R0, # ;
-	;BL PortM_Output
-	MOV R0, #00110101 ;
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #00110101 
 	BL PortK_Output
 	POP {PC}	;Retorna
+
 Liga_6
 ; 
 ; Pinos 
 	PUSH {LR}
-	;MOV R0, # ;
-	;BL PortM_Output
-	MOV R0, #00110110 ;
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #00110110 
 	BL PortK_Output
 	POP {PC}	;Retorna	
+
 Liga_7
 ; 
 ; Pinos 
 	PUSH {LR}
-	;MOV R0, # ;
-	;BL PortM_Output
-	MOV R0, #00110111 ;
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #00110111 
 	BL PortK_Output
 	POP {PC}	;Retorna
-	
+
 Liga_8
 ; 
 ; Pinos 
 	PUSH {LR}
-	;MOV R0, # ;
-	;BL PortM_Output
-	MOV R0, #00111000 ;
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #00111000 
 	BL PortK_Output
 	POP {PC}	;Retorna
 	
@@ -249,9 +237,39 @@ Liga_9
 ; 
 ; Pinos 
 	PUSH {LR}
-	;MOV R0, # ;
-	;BL PortM_Output
-	MOV R0, #00111001 ;
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #00111001 
+	BL PortK_Output
+	POP {PC}	;Retorna
+
+Liga_E
+; 
+; Pinos 
+	PUSH {LR}
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #01000101 
+	BL PortK_Output
+	POP {PC}	;Retorna
+
+Liga_a
+; 
+; Pinos 
+	PUSH {LR}
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #01100001 
+	BL PortK_Output
+	POP {PC}	;Retorna
+
+Liga_i
+; 
+; Pinos 
+	PUSH {LR}
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #01101001 
 	BL PortK_Output
 	POP {PC}	;Retorna
 ; -------------------------------------------------------------------------------------------------------------------------

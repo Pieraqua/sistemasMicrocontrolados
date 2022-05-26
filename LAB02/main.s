@@ -44,7 +44,22 @@
 		IMPORT  SysTick_Init
 		IMPORT  SysTick_Wait1ms			
 		IMPORT  GPIO_Init
-        
+        IMPORT	Liga_Enable
+		IMPORT  Desliga_Enable
+		IMPORT  Liga_x			
+		IMPORT  Liga_0
+		IMPORT  Liga_1
+		IMPORT  Liga_2
+		IMPORT  Liga_3
+		IMPORT  Liga_4
+		IMPORT  Liga_5		
+		IMPORT  Liga_6		
+		IMPORT  Liga_7		
+		IMPORT  Liga_8
+		IMPORT  Liga_9
+		IMPORT  Liga_E
+		IMPORT  Liga_a	
+		IMPORT  Liga_i
 
 ; -------------------------------------------------------------------------------
 ; Fun��o main()
@@ -141,7 +156,13 @@ IntTabuada
 ;;Funcao que interfaceia com o display para mostrar a mensagem de inicio
 MostraMensagemInicio
 	PUSH {LR}
-
+	
+	BL Liga_Enable      ;;Chama função para ligar Enable
+	BL Liga_E	        ;;Chama função para ligar E	       
+	BL Liga_a           ;;Chama função para ligar a
+	BL Liga_i           ;;Chama função para ligar i
+	BL Desliga_Enable   ;;Chama função para desligar Enable
+	
 	POP {PC}
 
 ;;Funcao que interfaceia com o display para mostrar x*y=z
