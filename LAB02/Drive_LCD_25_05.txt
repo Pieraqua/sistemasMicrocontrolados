@@ -1,0 +1,279 @@
+; -------------------------------------------------------------------------------
+        THUMB                        ; Instruções do tipo Thumb-2
+; -------------------------------------------------------------------------------
+		
+; Declarações EQU - Defines
+; ========================
+; Definições dos Ports
+; PORT K                                       
+GPIO_PORTK_DATA_R    	EQU    0x400613FC     
+
+; PORT L                                        
+GPIO_PORTL_DATA_R    	EQU    0x400623FC    
+
+; PORT M                                         	
+GPIO_PORTM_DATA_R    	EQU    0x400633FC   
+
+
+; -------------------------------------------------------------------------------
+; Área de Dados - Declarações de variáveis
+		AREA  DATA, ALIGN=2
+		; Se alguma variável for chamada em outro arquivo
+		;EXPORT  <var> [DATA,SIZE=<tam>]   ; Permite chamar a variável <var> a 
+		                                   ; partir de outro arquivo
+;<var>	SPACE <tam>                        ; Declara uma variável de nome <var>
+                                           ; de <tam> bytes a partir da primeira 
+                                           ; posição da RAM		
+
+; -------------------------------------------------------------------------------
+; Área de Código - Tudo abaixo da diretiva a seguir será armazenado na memória de 
+;                  código
+        AREA    |.text|, CODE, READONLY, ALIGN=2
+
+		; Se alguma função do arquivo for chamada em outro arquivo	
+
+									
+		; Se chamar alguma função externa	
+        ;IMPORT <func>              ; Permite chamar dentro deste arquivo uma 
+									; função <func>
+
+		IMPORT SysTick_Wait1ms		;Import de utils.s	
+		IMPORT SysTick_Wait
+
+		;EXPORT Liga_LCD
+		;EXPORT Desliga_LCD
+		EXPORT Liga_Enable
+		EXPORT Desliga_Enable
+		EXPORT Liga_x			
+		EXPORT Liga_0
+		EXPORT Liga_1
+		EXPORT Liga_2
+		EXPORT Liga_3
+		EXPORT Liga_4
+		EXPORT Liga_5		
+		EXPORT Liga_6		
+		EXPORT Liga_7		
+		EXPORT Liga_8
+		EXPORT Liga_9
+		EXPORT Liga_E
+		EXPORT Liga_a	
+		EXPORT Liga_i		
+
+;----------------------------------------------------------------------------------------------------------------
+
+PortK_Output
+	PUSH {R2, R1, LR}
+	LDR R1, =GPIO_PORTK_DATA_R		;Carrega o valor do offset do data register
+	LDR R2, [R1]				;Read-Modify-Write para escrita
+	AND R0, #0x0F                     	;Limpamos os bits que vamos mexer em
+	BIC R2, #0x0F                     	;Limpamos os bits que vamos mexer em
+	ORR R0, R0, R2                          ;Fazer o OR do lido pela porta com o parâmetro de entrada
+	STR R0, [R1]                            ;Escreve na porta N o barramento de dados dos pinos N0 e N1
+	POP {R2, R1, PC}
+
+PortL_Output
+	PUSH {R2, R1, LR}
+	LDR R1, =GPIO_PORTL_DATA_R		;Carrega o valor do offset do data register
+	LDR R2, [R1]				;Read-Modify-Write para escrita
+	AND R0, #0xF0                     	;Limpamos os bits que vamos mexer
+	BIC R2, #0xF0                     	;Limpamos os bits que vamos mexer
+	ORR R0, R0, R2                          ;Fazer o OR do lido pela porta com o parâmetro de entrada
+	STR R0, [R1]                            ;Escreve na porta N o barramento de dados dos pinos N0 e N1
+	POP {R2, R1, PC}
+
+PortM_Output
+	PUSH {R2, R1, LR}
+	LDR R1, =GPIO_PORTM_DATA_R		;Carrega o valor do offset do data register
+	LDR R2, [R1]				;Read-Modify-Write para escrita
+	AND R0, #0x30                     	;Limpamos os bits que vamos mexer
+	BIC R2, #0x30                     	;Limpamos os bits que vamos mexer
+	ORR R0, R0, R2                          ;Fazer o OR do lido pela porta com o parâmetro de entrada
+	STR R0, [R1]                            ;Escreve na porta N o barramento de dados dos pinos N0 e N1
+	POP {R2, R1, PC}
+
+;-------------------------------------------------------------------------------------------------------------------
+
+;Liga_LCD
+; 
+; Pinos
+;	PUSH {R1,LR}
+;	MOV R0, #00000100
+;	BL PortM_Output
+;	MOV R0, #00001111 
+;	BL PortK_Output
+;	POP {R1,PC}	;Retorna
+
+;Desliga_LCD
+; 
+; Pinos
+;	PUSH {R1,LR}
+;	MOV R0, #00000100
+;	BL PortM_Output
+;	MOV R0, #00001000 
+;	BL PortK_Output
+;	POP {R1,PC}	;Retorna
+
+Liga_Enable
+; 
+; Pinos
+	PUSH {R1,LR}
+	MOV R0, #00000100
+	BL PortM_Output
+	;MOV R0, #0x00
+	;BL PortK_Output
+	POP {R1,PC}	;Retorna
+
+Desliga_Enable
+; 
+; Pinos
+	PUSH {R1,LR}
+	MOV R0, #00000000
+	BL PortM_Output
+	;MOV R0, #0x00
+	;BL PortK_Output
+	POP {R1,PC}	;Retorna
+
+Liga_x
+; 
+; Pinos 
+	PUSH {LR}
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #01011000
+	BL PortK_Output
+	POP {PC}	;Retorna
+
+Liga_0
+; 
+; Pinos  
+	PUSH {LR}
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #00110000
+	BL PortK_Output
+	POP {PC}	;Retorna
+	
+Liga_1
+; 
+; Pinos 
+	PUSH {LR}
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #00110001 
+	BL PortK_Output
+	POP {PC}	;Retorna
+
+Liga_2
+; 
+; Pinos 
+	PUSH {LR}
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #00110010 
+	BL PortK_Output
+	POP {PC}	;Retorna
+
+Liga_3
+; 
+; Pinos 
+	PUSH {LR}
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #00110011 
+	BL PortK_Output
+	POP {PC}	;Retorna
+
+Liga_4
+; 
+; Pinos 
+	PUSH {LR}
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #00110100 
+	BL PortK_Output
+	POP {PC}	;Retorna
+
+Liga_5 
+; 
+; Pinos 
+	PUSH {LR}
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #00110101 
+	BL PortK_Output
+	POP {PC}	;Retorna
+
+Liga_6
+; 
+; Pinos 
+	PUSH {LR}
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #00110110 
+	BL PortK_Output
+	POP {PC}	;Retorna	
+
+Liga_7
+; 
+; Pinos 
+	PUSH {LR}
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #00110111 
+	BL PortK_Output
+	POP {PC}	;Retorna
+
+Liga_8
+; 
+; Pinos 
+	PUSH {LR}
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #00111000 
+	BL PortK_Output
+	POP {PC}	;Retorna
+	
+Liga_9
+; 
+; Pinos 
+	PUSH {LR}
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #00111001 
+	BL PortK_Output
+	POP {PC}	;Retorna
+
+Liga_E
+; 
+; Pinos 
+	PUSH {LR}
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #01000101 
+	BL PortK_Output
+	POP {PC}	;Retorna
+
+Liga_a
+; 
+; Pinos 
+	PUSH {LR}
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #01100001 
+	BL PortK_Output
+	POP {PC}	;Retorna
+
+Liga_i
+; 
+; Pinos 
+	PUSH {LR}
+	MOV R0, #00000001 
+	BL PortM_Output
+	MOV R0, #01101001 
+	BL PortK_Output
+	POP {PC}	;Retorna
+; -------------------------------------------------------------------------------------------------------------------------
+; Fim do Arquivo
+; -------------------------------------------------------------------------------------------------------------------------	
+    ALIGN                         ;Garante que o fim da seção está alinhada 
+    END                           ;Fim do arquivo
