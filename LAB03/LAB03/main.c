@@ -8,8 +8,20 @@
 #include <inc/hw_memmap.h>
 #include <inc/tm4c1294ncpdt.h>
 
+#include "app.h"
+#include "leds.h"
+
 int main(void)
 {
-    GPIO_PORTC_AHB_DATA_R = 0xFFFF;
+    vAPP_Init();
+    vLEDS_Init();
+
+    /* Loop principal */
+    while(1)
+    {
+        vAPP_Poll();
+        vLEDS_Poll();
+    }
+    /* Nunca vai retornar */
 	return 0;
 }

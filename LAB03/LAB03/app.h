@@ -28,6 +28,7 @@ typedef enum{
 typedef struct{
     enEstadosAPP estado;
     enSubestadosAPP subEstado;
+    uint8_t nVoltas;
 }STRUCT_APP;
 
 STRUCT_APP stApp;

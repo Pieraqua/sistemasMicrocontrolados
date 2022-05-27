@@ -11,6 +11,7 @@ void vAPP_Init()
 {
     stApp.estado = ESTADO_INICIAL;
     stApp.subEstado = Iniciando;
+    stApp.nVoltas = 0;
 }
 
 void vAPP_Poll()
