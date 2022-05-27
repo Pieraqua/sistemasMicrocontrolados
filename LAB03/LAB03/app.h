@@ -25,10 +25,22 @@ typedef enum{
     OuveTecla
 }enSubestadosAPP;
 
+typedef enum{
+    MeioPasso = 0,
+    PassoCompleto
+}enVelocidades;
+
+typedef enum{
+    Direto = 0,
+    Reverso
+}enSentidosGiro;
+
 typedef struct{
     enEstadosAPP estado;
     enSubestadosAPP subEstado;
     uint8_t nVoltas;
+    enVelocidades velocidade;
+    enSentidosGiro sentidoGiro;
 }STRUCT_APP;
 
 STRUCT_APP stApp;

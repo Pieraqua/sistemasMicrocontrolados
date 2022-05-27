@@ -12,6 +12,8 @@ void vAPP_Init()
     stApp.estado = ESTADO_INICIAL;
     stApp.subEstado = Iniciando;
     stApp.nVoltas = 0;
+    stApp.velocidade = MeioPasso;
+    stApp.sentidoGiro = Direto;
 }
 
 void vAPP_Poll()
@@ -73,7 +75,43 @@ static void svEstadoInicial()
 }
 static void svEstadoNVoltas()
 {
+    switch(stApp.subEstado)
+        {
+        case Iniciando:
+            /* Inicializa aqui */
 
+            /* Ao final, trocar o subestado de stApp */
+            //if(terminou inicializacao)
+            stApp.subEstado = MostraMensagem;
+            break;
+
+        case MostraMensagem:
+            /* Mostra a mensagem aqui */
+            display_MostraMensagem("mensagem");
+
+            /* Ao final, trocar o subestado de stApp */
+            //if(terminou inicializacao)
+            stApp.subEstado = OuveTecla;
+            break;
+
+        case OuveTecla:
+            /* Trata ouvir tecla aqui */
+            uint8_t tecla = teclado_OuveTecla(); // retorna caracter
+
+            if(tecla >= '0' && tecla <= '9')
+            {
+                if(tecla == '0')
+                    stApp.nVoltas = 10;
+                else
+                    stApp.nVoltas = tecla - '0';
+
+                /* Ao final, trocar o estado de stApp */
+                stApp.estado = ESTADO_SENTIDO;
+            }
+
+
+            break;
+        }
 }
 static void svEstadoOperando()
 {
