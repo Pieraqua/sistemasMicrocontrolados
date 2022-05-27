@@ -41,6 +41,33 @@ void vAPP_Poll()
 
 static void svEstadoInicial()
 {
+    switch(stApp.subEstado)
+    {
+    case Iniciando:
+        /* Inicializa aqui */
+
+        /* Ao final, trocar o subestado de stApp */
+        //if(terminou inicializacao)
+        stApp.subEstado = MostraMensagem;
+        break;
+
+    case MostraMensagem:
+        /* Mostra a mensagem aqui */
+
+
+        /* Ao final, trocar o subestado de stApp */
+        //if(terminou inicializacao)
+        stApp.subEstado = OuveTecla;
+        break;
+
+    case OuveTecla:
+        /* Trata ouvir tecla aqui */
+
+        /* Ao final, trocar o estado de stApp */
+        //if(terminou inicializacao)
+        stApp.estado = ESTADO_NVOLTAS;
+        break;
+    }
 
 }
 static void svEstadoNVoltas()
