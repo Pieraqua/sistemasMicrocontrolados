@@ -38,3 +38,28 @@ void vAPP_Poll()
     }
 
 }
+
+static void svEstadoInicial()
+{
+
+}
+static void svEstadoNVoltas()
+{
+
+}
+static void svEstadoOperando()
+{
+
+}
+static void svEstadoSentido()
+{
+
+}
+static void svEstadoFinal()
+{
+
+}
+static void svEstadoVelocidade()
+{
+
+}
