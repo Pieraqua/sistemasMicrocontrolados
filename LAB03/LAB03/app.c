@@ -56,7 +56,7 @@ static void svEstadoInicial()
 
     case MostraMensagem:
         /* Mostra a mensagem aqui */
-
+        display_MostraMensagem("Olá.")
 
         /* Ao final, trocar o subestado de stApp */
         //if(terminou inicializacao)
@@ -65,10 +65,18 @@ static void svEstadoInicial()
 
     case OuveTecla:
         /* Trata ouvir tecla aqui */
+        display_MostraMensagem("Aperte 1 para iniciar.");
 
+        uint8_t tecla = teclado_OuveTecla();
+
+        if (tecla == 1){
+            stApp.estado = ESTADO_NVOLTAS;
+        }
+        else{
         /* Ao final, trocar o estado de stApp */
         //if(terminou inicializacao)
-        stApp.estado = ESTADO_NVOLTAS;
+        stApp.estado = ESTADO_INICIAL;
+        }
         break;
     }
 
@@ -87,7 +95,7 @@ static void svEstadoNVoltas()
 
         case MostraMensagem:
             /* Mostra a mensagem aqui */
-            display_MostraMensagem("mensagem");
+            display_MostraMensagem("Qual o numero de voltas?");
 
             /* Ao final, trocar o subestado de stApp */
             //if(terminou inicializacao)
@@ -115,17 +123,157 @@ static void svEstadoNVoltas()
 }
 static void svEstadoOperando()
 {
+    switch(stApp.subEstado)
+        {
+        case Iniciando:
+            /* Inicializa aqui */
+
+            /* Ao final, trocar o subestado de stApp */
+            //if(terminou inicializacao)
+            stApp.subEstado = MostraMensagem;
+            break;
+
+        case MostraMensagem:
+            /* Mostra a mensagem aqui */
+            display_MostraMensagem("Em operação");
+
+            /* Ao final, trocar o subestado de stApp */
+            //if(terminou inicializacao)
+            stApp.subEstado = OuveTecla;
+            break;
+
+        case OuveTecla:
+            /* Trata ouvir tecla aqui */
+            /* Não sei como fazer */
+            if(switch == 1){
+                stApp.estado = ESTADO_INICIAL;
+            }
+            else{
+            /* Ao final, trocar o estado de stApp */
+            //if(terminou inicializacao)
+            stApp.estado = ESTADO_FINAL;
+            }
+            break;
+        }
 
 }
 static void svEstadoSentido()
 {
+    switch(stApp.subEstado)
+        {
+        case Iniciando:
+            /* Inicializa aqui */
+
+            /* Ao final, trocar o subestado de stApp */
+            //if(terminou inicializacao)
+            stApp.subEstado = MostraMensagem;
+            break;
+
+        case MostraMensagem:
+            /* Mostra a mensagem aqui */
+            display_MostraMensagem("Qual o sentido de giro?");
+
+            /* Ao final, trocar o subestado de stApp */
+            //if(terminou inicializacao)
+            stApp.subEstado = OuveTecla;
+            break;
+
+        case OuveTecla:
+            /* Trata ouvir tecla aqui */
+            uint8_t tecla = teclado_OuveTecla();
+
+            if(tecla == 1){
+                stApp.sentidoGiro = Direto;
+            }
+            if(tecla == 2){
+                stApp.sentidoGiro = Reverso;
+            }
+
+
+            /* Ao final, trocar o estado de stApp */
+            //if(terminou inicializacao)
+            stApp.estado = ESTADO_VELOCIDADE;
+            break;
+        }
 
 }
 static void svEstadoFinal()
 {
+    switch(stApp.subEstado)
+            {
+            case Iniciando:
+                /* Inicializa aqui */
+
+                /* Ao final, trocar o subestado de stApp */
+                //if(terminou inicializacao)
+                stApp.subEstado = MostraMensagem;
+                break;
+
+            case MostraMensagem:
+                /* Mostra a mensagem aqui */
+                display_MostraMensagem("Processo concluido");
+
+                /* Ao final, trocar o subestado de stApp */
+                //if(terminou inicializacao)
+                stApp.subEstado = OuveTecla;
+                break;
+
+            case OuveTecla:
+                /* Trata ouvir tecla aqui */
+                display_MostraMensagem("Aperte 1 para continuar");
+
+                uint8_t tecla = teclado_OuveTecla();
+
+                if(tecla == 1){
+                    stApp.estado = ESTADO_NVOLTAS;
+                }
+                else{
+                /* Ao final, trocar o estado de stApp */
+                //if(terminou inicializacao)
+                //vai tudo pra solicitação de voltas
+                stApp.estado = ESTADO_FINAL;
+                }
+                break;
+            }
 
 }
 static void svEstadoVelocidade()
 {
+    switch(stApp.subEstado)
+            {
+            case Iniciando:
+                /* Inicializa aqui */
+
+                /* Ao final, trocar o subestado de stApp */
+                //if(terminou inicializacao)
+                stApp.subEstado = MostraMensagem;
+                break;
+
+            case MostraMensagem:
+                /* Mostra a mensagem aqui */
+                display_MostraMensagem("Qual a velocidade?");
+
+
+                /* Ao final, trocar o subestado de stApp */
+                //if(terminou inicializacao)
+                stApp.subEstado = OuveTecla;
+                break;
+
+            case OuveTecla:
+                /* Trata ouvir tecla aqui */
+                uint8_t tecla = teclado_OuveTecla();
+
+                if(tecla == 1){
+                    stApp.velocidade = MeioPasso;
+                }
+                if(tecla == 2){
+                    stApp.velocidade = PassoCompleto;
+                }
+
+                /* Ao final, trocar o estado de stApp */
+                //if(terminou inicializacao)
+                stApp.estado = ESTADO_OPERANDO;
+                break;
+            }
 
 }
