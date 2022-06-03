@@ -29,15 +29,15 @@ void GPIO_Init()
     //Liga clock GPIO_M
     SYSCTL_RCGCGPIO_R |= 0x80;
     //Portas 0~2: Output
-    GPIO_PORTK_DIR_R  |= 0x07;
+    GPIO_PORTM_DIR_R  |= 0x07;
     //Digital enable
-    GPIO_PORTK_AMSEL_R &= 0xFFFA;
-    GPIO_PORTK_AFSEL_R &= 0xFFF0;
-    GPIO_PORTK_DEN_R |= 0X0F;
+    GPIO_PORTM_AMSEL_R &= 0xFFF8;
+    GPIO_PORTM_AFSEL_R &= 0xFFF8;
+    GPIO_PORTM_DEN_R |= 0X07;
     //Disable extra drive
-    GPIO_PORTK_PC_R = 0x00;
+    GPIO_PORTM_PC_R = 0x00;
     //Disable interrupts
-    GPIO_PORTK_IM_R = 0x00;
+    GPIO_PORTM_IM_R = 0x00;
 
 
 }
