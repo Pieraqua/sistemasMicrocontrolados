@@ -12,6 +12,7 @@
 #include "leds.h"
 #include "teste.h"
 #include "gpio.h"
+#include "display.h"
 
 extern PLL_Init();
 
@@ -22,6 +23,7 @@ void main(void)
     vAPP_Init();
     vLEDS_Init();
     GPIO_Init();
+    LCD_Init();
 
     teste();
 
