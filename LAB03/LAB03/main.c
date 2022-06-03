@@ -13,10 +13,11 @@
 #include "teste.h"
 #include "gpio.h"
 #include "display.h"
+#include "motor.h"
 
 extern PLL_Init();
 
-//delay um número de clocks
+//delay um nï¿½mero de clocks
 /*void delay(uint32_t i)
 {
     uint32_t z;
@@ -35,12 +36,14 @@ void main(void)
     delay(80000 * 50); //50ms
 
     LCD_Init();
+    vMOTOR_Init();
 
-    teste();
+    stMotor.velocidade = 0;
 
     /* Loop principal */
     while(1)
     {
+        vMOTOR_Poll();
         //vAPP_Poll();
         //vLEDS_Poll();
 

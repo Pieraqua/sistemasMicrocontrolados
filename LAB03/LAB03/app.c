@@ -48,9 +48,6 @@ static void svEstadoInicial()
     {
     case Iniciando:
         /* Inicializa aqui */
-        LCD_Init();
-        lcdOn_Off();
-        LCD_clearDisplay();
         /* Ao final, trocar o subestado de stApp */
         //if(terminou inicializacao)
         stApp.subEstado = MostraMensagem;
@@ -58,8 +55,8 @@ static void svEstadoInicial()
 
     case MostraMensagem:
         /* Mostra a mensagem aqui */
-        display_MostraMensagem("OLA.");
-        displayChar(simbolosDisplay simbolo);
+        display_MostraMensagem("OLA.", strlen("OLA."));
+        //displayChar(simbolo);
         /* Ao final, trocar o subestado de stApp */
         //if(terminou inicializacao)
         stApp.subEstado = OuveTecla;
@@ -67,9 +64,9 @@ static void svEstadoInicial()
 
     case OuveTecla:
         /* Trata ouvir tecla aqui */
-        LCD_clearDisplay();
-        display_MostraMensagem("APERTE UM PARA INICIAR.");
-        displayChar(simbolosDisplay simbolo);
+        LCD_writeCommand(lcd_Clear);
+        display_MostraMensagem("APERTE UM PARA INICIAR.", strlen("APERTE UM PARA INICIAR."));
+        //displayChar(simbolosDisplay simbolo);
 
         uint8_t tecla = teclado_OuveTecla();
 
@@ -92,9 +89,6 @@ static void svEstadoNVoltas()
         {
         case Iniciando:
             /* Inicializa aqui */
-            LCD_Init();
-            lcdOn_Off();
-            LCD_clearDisplay();
             /* Ao final, trocar o subestado de stApp */
             //if(terminou inicializacao)
             stApp.subEstado = MostraMensagem;
@@ -102,8 +96,8 @@ static void svEstadoNVoltas()
 
         case MostraMensagem:
             /* Mostra a mensagem aqui */
-            display_MostraMensagem("QUAL O NUMERO DE VOLTAS?");
-            displayChar(simbolosDisplay simbolo);
+            display_MostraMensagem("QUAL O NUMERO DE VOLTAS?", strlen("QUAL O NUMERO DE VOLTAS?"));
+            //displayChar(simbolosDisplay simbolo);
 
             /* Ao final, trocar o subestado de stApp */
             //if(terminou inicializacao)
@@ -135,9 +129,6 @@ static void svEstadoOperando()
         {
         case Iniciando:
             /* Inicializa aqui */
-            LCD_Init();
-            lcdOn_Off();
-            LCD_clearDisplay();
             /* Ao final, trocar o subestado de stApp */
             //if(terminou inicializacao)
             stApp.subEstado = MostraMensagem;
@@ -145,8 +136,8 @@ static void svEstadoOperando()
 
         case MostraMensagem:
             /* Mostra a mensagem aqui */
-            display_MostraMensagem("OPERANDO");
-            displayChar(simbolosDisplay simbolo);
+            display_MostraMensagem("OPERANDO", strlen("OPERANDO"));
+            //displayChar(simbolosDisplay simbolo);
 
             /* Ao final, trocar o subestado de stApp */
             //if(terminou inicializacao)
@@ -155,7 +146,7 @@ static void svEstadoOperando()
 
         case OuveTecla:
             /* Trata ouvir tecla aqui */
-            /* Não sei como fazer */
+            /* Nï¿½o sei como fazer */
             if(1){
                 stApp.estado = ESTADO_INICIAL;
             }
@@ -175,9 +166,6 @@ static void svEstadoSentido()
         {
         case Iniciando:
             /* Inicializa aqui */
-            LCD_Init();
-            lcdOn_Off();
-            LCD_clearDisplay();
             /* Ao final, trocar o subestado de stApp */
             //if(terminou inicializacao)
             stApp.subEstado = MostraMensagem;
@@ -185,8 +173,8 @@ static void svEstadoSentido()
 
         case MostraMensagem:
             /* Mostra a mensagem aqui */
-            display_MostraMensagem("QUAL O SENTIDO DE GIRO?");
-            displayChar(simbolosDisplay simbolo);
+            display_MostraMensagem("QUAL O SENTIDO DE GIRO?", strlen("QUAL O SENTIDO DE GIRO?"));
+            //displayChar(simbolosDisplay simbolo);
 
             /* Ao final, trocar o subestado de stApp */
             //if(terminou inicializacao)
@@ -218,9 +206,6 @@ static void svEstadoFinal()
             {
             case Iniciando:
                 /* Inicializa aqui */
-                LCD_Init();
-                lcdOn_Off();
-                LCD_clearDisplay();
                 /* Ao final, trocar o subestado de stApp */
                 //if(terminou inicializacao)
                 stApp.subEstado = MostraMensagem;
@@ -228,8 +213,8 @@ static void svEstadoFinal()
 
             case MostraMensagem:
                 /* Mostra a mensagem aqui */
-                display_MostraMensagem("PROCESSO CONCLUIDO");
-                displayChar(simbolosDisplay simbolo);
+                display_MostraMensagem("PROCESSO CONCLUIDO", strlen("PROCESSO CONCLUIDO"));
+                //displayChar(simbolo);
 
                 /* Ao final, trocar o subestado de stApp */
                 //if(terminou inicializacao)
@@ -238,8 +223,8 @@ static void svEstadoFinal()
 
             case OuveTecla:
                 /* Trata ouvir tecla aqui */
-                display_MostraMensagem("APERTE UM PARA CONTINUAR");
-                displayChar(simbolosDisplay simbolo);
+                display_MostraMensagem("APERTE UM PARA CONTINUAR", strlen("APERTE UM PARA CONTINUAR"));
+                //displayChar(simbolo);
 
                 uint8_t tecla = teclado_OuveTecla();
 
@@ -249,7 +234,7 @@ static void svEstadoFinal()
                 else{
                 /* Ao final, trocar o estado de stApp */
                 //if(terminou inicializacao)
-                //vai tudo pra solicitação de voltas
+                //vai tudo pra solicitaï¿½ï¿½o de voltas
                 stApp.estado = ESTADO_FINAL;
                 }
                 break;
@@ -263,9 +248,6 @@ static void svEstadoVelocidade()
             {
             case Iniciando:
                 /* Inicializa aqui */
-                LCD_Init();
-                lcdOn_Off();
-                LCD_clearDisplay();
                 /* Ao final, trocar o subestado de stApp */
                 //if(terminou inicializacao)
                 stApp.subEstado = MostraMensagem;
@@ -273,8 +255,8 @@ static void svEstadoVelocidade()
 
             case MostraMensagem:
                 /* Mostra a mensagem aqui */
-                display_MostraMensagem("QUAL A VELOCIDADE?");
-                displayChar(simbolosDisplay simbolo);
+                display_MostraMensagem("QUAL A VELOCIDADE?", strlen("QUAL A VELOCIDADE?"));
+                //displayChar(simbolo);
 
 
                 /* Ao final, trocar o subestado de stApp */

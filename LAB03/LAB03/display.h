@@ -11,6 +11,19 @@
 #include "gpio.h"
 #include <stdint.h>
 
+
+// LCD instructions
+#define lcd_Clear           0b00000001          // replace all characters with ASCII 'space'
+#define lcd_Home            0b00000010          // return cursor to first position on first line
+#define lcd_EntryMode       0b00000110          // shift cursor from left to right on read/write
+#define lcd_DisplayOff      0b00001000          // turn display off
+#define lcd_DisplayOn       0b00001100          // display on, cursor off, don't blink character
+#define lcd_FunctionReset   0b00110000          // reset the LCD
+#define lcd_FunctionSet8bit 0b00111000          // 8-bit data, 2-line display, 5 x 7 font
+#define lcd_SetCursor       0b10000000          // set cursor position
+
+
+
 #define WAIT_DELAY 50
 //#define RS_LCD Port_M_0
 //#define RW_LCD Port_M_1
@@ -45,19 +58,18 @@ typedef enum
     SIMB_X = 0x58,
     SIMB_Y = 0x59,
     SIMB_Z = 0x5A,
-    SIMB_INTERROGAÇÃO = 0x3F,
+    SIMB_INTERROGACAO = 0x3F,
     SIMB_PONTO = 0x2E,
 
 }simbolosDisplay;
 
-void display_MostraMensagem();
+void display_MostraMensagem(const uint8_t* message, uint8_t size);
 
 void delay(uint32_t i);
 void displayChar(simbolosDisplay simbolo);
 uint8_t LCD_checkBusyFlag();
-void lcdOn_Off();
 void LCD_Init();
-
+void LCD_writeCommand(uint8_t command);
 
 
 #endif /* DISPLAY_H_ */

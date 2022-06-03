@@ -9,7 +9,7 @@
 
 void teste()
 {
-    lcdOn_Off();
+
 
     do{
         displayChar(SIMB_A);
@@ -35,8 +35,6 @@ void teste()
     }while(LCD_checkBusyFlag());
 
     delay(80000000);
-
-    lcdOn_Off();
 }
 
 

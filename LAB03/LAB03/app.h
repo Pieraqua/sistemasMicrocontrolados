@@ -11,6 +11,7 @@
 #include <stdint.h>
 #include "teclado.h"
 #include "display.h"
+#include "string.h"
 
 typedef enum{
   ESTADO_INICIAL = 0,
