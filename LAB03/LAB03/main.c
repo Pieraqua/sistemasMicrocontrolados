@@ -13,8 +13,12 @@
 #include "teste.h"
 #include "gpio.h"
 
-int main(void)
+extern PLL_Init();
+
+void main(void)
 {
+
+    PLL_Init();
     vAPP_Init();
     vLEDS_Init();
     GPIO_Init();
@@ -28,6 +32,4 @@ int main(void)
         //vLEDS_Poll();
 
     }
-    /* Nunca vai retornar */
-	return 0;
 }
