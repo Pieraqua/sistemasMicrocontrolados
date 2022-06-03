@@ -8,8 +8,7 @@
 #ifndef GPIO_H_
 #define GPIO_H_
 
-
-
+#define GPIO_K_DATA GPIO_PORTK_BASE + 0
 
 
 #endif /* GPIO_H_ */
