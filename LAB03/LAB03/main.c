@@ -16,6 +16,14 @@
 
 extern PLL_Init();
 
+//delay um número de clocks
+void delay(uint32_t i)
+{
+    uint32_t z;
+    for(z = 0; z < i; z++)
+    {}
+}
+
 void main(void)
 {
 
@@ -23,6 +31,9 @@ void main(void)
     vAPP_Init();
     vLEDS_Init();
     GPIO_Init();
+
+    delay(80000 * 50); //50ms
+
     LCD_Init();
 
     teste();

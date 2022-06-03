@@ -86,12 +86,12 @@ void LCD_Init()
     // Disable instructions
     LCDControlBits = 0x00;
 
-    //Liga display e cursor mas não blinking
+    //Function set
     LCDDataBits = 0x30;
 
     // Instruction register, write, enable
     LCDControlBits =  0x01;
-    delay(WAIT_DELAY);
+    delay(80000 * 10); //10ms
     // Disable instructions
     LCDControlBits = 0x00;
 
