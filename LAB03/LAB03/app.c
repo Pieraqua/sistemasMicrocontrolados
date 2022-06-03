@@ -56,7 +56,7 @@ static void svEstadoInicial()
 
     case MostraMensagem:
         /* Mostra a mensagem aqui */
-        display_MostraMensagem("Olá.");
+        display_MostraMensagem("OLA.");
 
         /* Ao final, trocar o subestado de stApp */
         //if(terminou inicializacao)

@@ -4,7 +4,7 @@
  *  Created on: May 27, 2022
  *      Author: pieraqua
  */
-n faço ideia se isso é correto, mas ACHO que é a logica
+//n faço ideia se isso é correto, mas ACHO que é a logica
 /*static void GiraMotorDireto()
 {
     switch()
