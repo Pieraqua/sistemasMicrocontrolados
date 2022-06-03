@@ -17,12 +17,12 @@
 extern PLL_Init();
 
 //delay um número de clocks
-void delay(uint32_t i)
+/*void delay(uint32_t i)
 {
     uint32_t z;
     for(z = 0; z < i; z++)
     {}
-}
+}*/
 
 void main(void)
 {
