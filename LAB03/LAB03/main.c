@@ -10,17 +10,23 @@
 
 #include "app.h"
 #include "leds.h"
+#include "teste.h"
+#include "gpio.h"
 
 int main(void)
 {
     vAPP_Init();
     vLEDS_Init();
+    GPIO_Init();
+
+    teste();
 
     /* Loop principal */
     while(1)
     {
-        vAPP_Poll();
-        vLEDS_Poll();
+        //vAPP_Poll();
+        //vLEDS_Poll();
+
     }
     /* Nunca vai retornar */
 	return 0;

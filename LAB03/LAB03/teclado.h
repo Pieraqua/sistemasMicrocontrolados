@@ -7,8 +7,9 @@
 
 #ifndef TECLADO_H_
 #define TECLADO_H_
+#include <stdint.h>
 
-
+uint8_t teclado_OuveTecla();
 
 
 

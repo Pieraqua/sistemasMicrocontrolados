@@ -9,6 +9,8 @@
 #define APP_H_
 
 #include <stdint.h>
+#include "teclado.h"
+#include "display.h"
 
 typedef enum{
   ESTADO_INICIAL = 0,

@@ -8,7 +8,10 @@
 #ifndef GPIO_H_
 #define GPIO_H_
 
+#include "inc/tm4c1294ncpdt.h"
+
 #define GPIO_K_DATA GPIO_PORTK_BASE + 0
 
+void GPIO_Init();
 
 #endif /* GPIO_H_ */

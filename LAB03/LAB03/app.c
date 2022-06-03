@@ -56,7 +56,7 @@ static void svEstadoInicial()
 
     case MostraMensagem:
         /* Mostra a mensagem aqui */
-        display_MostraMensagem("Olá.")
+        display_MostraMensagem("Olá.");
 
         /* Ao final, trocar o subestado de stApp */
         //if(terminou inicializacao)
@@ -83,6 +83,7 @@ static void svEstadoInicial()
 }
 static void svEstadoNVoltas()
 {
+    uint8_t tecla;
     switch(stApp.subEstado)
         {
         case Iniciando:
@@ -104,7 +105,7 @@ static void svEstadoNVoltas()
 
         case OuveTecla:
             /* Trata ouvir tecla aqui */
-            uint8_t tecla = teclado_OuveTecla(); // retorna caracter
+            tecla = teclado_OuveTecla(); // retorna caracter
 
             if(tecla >= '0' && tecla <= '9')
             {
@@ -145,7 +146,7 @@ static void svEstadoOperando()
         case OuveTecla:
             /* Trata ouvir tecla aqui */
             /* Não sei como fazer */
-            if(switch == 1){
+            if(1){
                 stApp.estado = ESTADO_INICIAL;
             }
             else{
@@ -159,6 +160,7 @@ static void svEstadoOperando()
 }
 static void svEstadoSentido()
 {
+    uint8_t tecla;
     switch(stApp.subEstado)
         {
         case Iniciando:
@@ -180,7 +182,7 @@ static void svEstadoSentido()
 
         case OuveTecla:
             /* Trata ouvir tecla aqui */
-            uint8_t tecla = teclado_OuveTecla();
+            tecla = teclado_OuveTecla();
 
             if(tecla == 1){
                 stApp.sentidoGiro = Direto;
@@ -239,6 +241,7 @@ static void svEstadoFinal()
 }
 static void svEstadoVelocidade()
 {
+    uint8_t tecla;
     switch(stApp.subEstado)
             {
             case Iniciando:
@@ -261,7 +264,7 @@ static void svEstadoVelocidade()
 
             case OuveTecla:
                 /* Trata ouvir tecla aqui */
-                uint8_t tecla = teclado_OuveTecla();
+                tecla = teclado_OuveTecla();
 
                 if(tecla == 1){
                     stApp.velocidade = MeioPasso;

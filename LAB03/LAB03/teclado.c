@@ -5,6 +5,10 @@
  *      Author: pieraqua
  */
 
+#include "teclado.h"
 
-
+uint8_t teclado_OuveTecla()
+{
+    return 0;
+}
 
