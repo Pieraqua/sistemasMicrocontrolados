@@ -13,11 +13,11 @@ void GPIO_Init()
     //Liga clock GPIO port K
     SYSCTL_RCGCGPIO_R |= 0x200;
     //Portas 0~7: Output
-    GPIO_PORTK_DIR_R  |= 0x0F;
+    GPIO_PORTK_DIR_R  |= 0xFF;
     //Digital enable
-    GPIO_PORTK_AMSEL_R &= 0xFFF0;
-    GPIO_PORTK_AFSEL_R &= 0xFFF0;
-    GPIO_PORTK_DEN_R |= 0X0F;
+    GPIO_PORTK_AMSEL_R &= 0xFF00;
+    GPIO_PORTK_AFSEL_R &= 0xFF00;
+    GPIO_PORTK_DEN_R |= 0XFF;
     //Disable extra drive
     GPIO_PORTK_PC_R = 0x00;
     //Disable interrupts

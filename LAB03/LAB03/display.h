@@ -11,6 +11,7 @@
 #include "gpio.h"
 #include <stdint.h>
 
+#define WAIT_DELAY 50
 //#define RS_LCD Port_M_0
 //#define RW_LCD Port_M_1
 //#define ENABLE_LCD Port_M_2
@@ -55,6 +56,7 @@ void delay(uint32_t i);
 void displayChar(simbolosDisplay simbolo);
 uint8_t LCD_checkBusyFlag();
 void lcdOn_Off();
+void LCD_Init();
 
 
 
