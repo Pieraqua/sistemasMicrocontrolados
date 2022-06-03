@@ -11,7 +11,7 @@ void GPIO_Init()
 {
     //Todos os gpio K como Output Digital
     //Liga clock GPIO port K
-    SYSCTL_RCGCGPIO_R |= 0x20;
+    SYSCTL_RCGCGPIO_R |= 0x200;
     //Portas 0~7: Output
     GPIO_PORTK_DIR_R  |= 0x0F;
     //Digital enable
@@ -27,7 +27,7 @@ void GPIO_Init()
     //PM1 = Read (1) / Write (0)
     //PM2 = Enable (inicia leitura)
     //Liga clock GPIO_M
-    SYSCTL_RCGCGPIO_R |= 0x80;
+    SYSCTL_RCGCGPIO_R |= 0x800;
     //Portas 0~2: Output
     GPIO_PORTM_DIR_R  |= 0x07;
     //Digital enable
