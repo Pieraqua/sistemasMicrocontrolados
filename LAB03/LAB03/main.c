@@ -44,7 +44,7 @@ void main(void)
     while(1)
     {
         vMOTOR_Poll();
-        //vAPP_Poll();
+        vAPP_Poll();
         //vLEDS_Poll();
 
     }

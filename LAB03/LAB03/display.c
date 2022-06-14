@@ -35,7 +35,7 @@ void LCD_Init()
         delay(100 * 80000);                                 // initial 40 mSec delay
 
     // Reset the LCD controller
-        LCD_writeCommand(lcd_FunctionReset);    // first part of reset sequence
+        /*LCD_writeCommand(lcd_FunctionReset);    // first part of reset sequence
         delay(10 * 80000);                                  // 4.1 mS delay (min)
 
         LCD_writeCommand(lcd_FunctionReset);    // second part of reset sequence
@@ -69,6 +69,14 @@ void LCD_Init()
 
     // Display On/Off Control instruction
         LCD_writeCommand(lcd_DisplayOn);        // turn the display ON
+        delay(80 * 40);
+        */
+
+        LCD_writeCommand(0x38);
+        delay(80 * 40);
+        LCD_writeCommand(0x06);
+        delay(80 * 40);
+        LCD_writeCommand(0x0E);
         delay(80 * 40);
 }
 
@@ -108,7 +116,7 @@ void LCD_writeCommand(uint8_t command)
 
     LCDDataBits = command;
 
-    LCDControlBits = 0x01;
+    LCDControlBits = 0x04;
     delay(8000);
 
     LCDControlBits = 0x00;

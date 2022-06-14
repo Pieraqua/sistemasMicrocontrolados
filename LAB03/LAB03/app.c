@@ -7,6 +7,11 @@
 
 #include "app.h"
 
+uint8_t teclado_OuveTecla()
+{
+    return 0;
+}
+
 void vAPP_Init()
 {
     stApp.estado = ESTADO_INICIAL;

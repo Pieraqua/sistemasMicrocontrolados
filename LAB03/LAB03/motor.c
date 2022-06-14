@@ -4,7 +4,6 @@
  *  Created on: May 27, 2022
  *      Author: pieraqua
  */
-//n fa�o ideia se isso � correto, mas ACHO que � a logica
 #include "motor.h"
 
 #define MotorControlBits (*(volatile uint32_t*)(GPIO_PORTH_AHB_DATA_BITS_R + 0x1 + 0x2 + 0x4 + 0x8))
